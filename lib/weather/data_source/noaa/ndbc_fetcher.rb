@@ -5,20 +5,19 @@ module Weather::DataSource::Noaa
   class NdbcFetcher < Weather::DataFetcher
 
     
-    def url
-      'http://google.com'
-    end
-
-    def uri
+    
+    def api_base_url
       # "http://www.ndbc.noaa.gov/data/realtime2/#{buoy_id}.#{data_type}"
-      URI.parse 'http://google.com'
+      'http://www.ndbc.noaa.gov/data/realtime2'
+    end
+    
+    def path
+      '44007.txt'
     end
 
     # Send GET to NDBC and return response.
     def get
-      @response = Faraday.get(url)
-      puts @response.body
-      @response
+      @response = super(path)
     end
 
 

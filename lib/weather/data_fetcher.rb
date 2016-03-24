@@ -1,6 +1,6 @@
-# require 'net/http'
 require 'faraday'
-require 'uri'
+
+require 'weather/data_fetcher/connection'
 
 
 module Weather
@@ -17,9 +17,17 @@ module Weather
   #     end
   
   class DataFetcher
+    
+    include Connection
 
     def self.get(*args)
       self.new(*args).get
+    end
+    
+    def get(path, params=nil)
+      connection.get(path) do |request|
+        request.params = params if params
+      end
     end
 
   end
