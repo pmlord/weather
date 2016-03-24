@@ -3,6 +3,7 @@ require 'unitwise'
 
 require 'weather/conditions'
 require 'weather/condition'
+require 'weather/configuration'
 require 'weather/version'
 
 
@@ -10,7 +11,13 @@ require 'weather/version'
 # data.
 
 module Weather
-  def self.hi
-    'Hello, World!'
+  
+  def self.configuration
+    @configuration ||= Configuration.new
   end
+  
+  def self.configure
+    yield configuration
+  end
+  
 end
