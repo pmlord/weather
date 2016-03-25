@@ -1,7 +1,5 @@
 require 'faraday'
 
-require 'weather/data_fetcher/connection'
-
 
 module Weather
 
@@ -18,8 +16,6 @@ module Weather
   
   class DataFetcher
     
-    include Connection
-
     def self.get(*args)
       self.new(*args).get
     end
@@ -29,6 +25,10 @@ module Weather
         request.params = params if params
       end
     end
-
+    
+    def connection
+      @connection ||= Faraday.new
+    end
+    
   end
 end
