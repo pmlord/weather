@@ -4,13 +4,13 @@ module Weather
 
   class Condition
 
-    attr_reader :name, :value, :time
+    attr_reader :name, :value, :time, :source
 
-    # TODO: #source
-    def initialize(name, value, time)
+    def initialize(name, value, time, source)
       @name = name
       @value = value
       @time = time
+      @source = source
     end
 
   end
