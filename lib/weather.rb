@@ -6,6 +6,7 @@ require 'weather/condition'
 require 'weather/configuration'
 require 'weather/data_fetcher'
 require 'weather/data_source'
+require 'weather/errors'
 require 'weather/version'
 
 
@@ -13,13 +14,13 @@ require 'weather/version'
 # data.
 
 module Weather
-  
+
   def self.configuration
     @configuration ||= Configuration.new
   end
-  
+
   def self.configure
     yield configuration
   end
-  
+
 end
