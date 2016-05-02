@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 
-
-
 describe Weather::DataSource::Noaa::NdbcFetcher do
 
   # let(:fetcher_class) { Weather::DataSource::Noaa::NdbcFetcher }
