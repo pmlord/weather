@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Weather::Condition do
 
   let(:time) { Time.now }
-  let(:condition) { Weather::Condition.new(:wind_speed, Unitwise(5, 'knot'), time) }
+  let(:condition) { Weather::Condition.new(:wind_speed, Unitwise(5, 'knot'), time, Weather::DataSource::Noaa::Ndbc) }
 
   describe '#name' do
     subject {condition.name}
@@ -17,10 +17,10 @@ describe Weather::Condition do
     subject {condition.time}
     it { is_expected.to eq(time) }
   end
-  # describe '#source' do
-  #   subject {condition.name}
-  #   it { is_expected.to eq() }
-  # end
+  describe '#source' do
+    subject {condition.source}
+    it { is_expected.to eq(Weather::DataSource::Noaa::Ndbc) }
+  end
 
 
 end

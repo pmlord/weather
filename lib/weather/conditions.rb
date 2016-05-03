@@ -1,9 +1,16 @@
 module Weather
-  
-  class Conditions
+
+  class Conditions < Hash
+
+    attr_accessor :time
+
+    def add_condition(name, *args)
+      self.merge! name => Condition.new(name, *args)
+    end
+
     def conditions
-      @conditions ||= Hash.new
+      values
     end
   end
-  
+
 end
