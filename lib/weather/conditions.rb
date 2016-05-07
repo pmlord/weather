@@ -1,11 +1,13 @@
+require 'ostruct'
+
 module Weather
 
-  class Conditions < Hash
+  class Conditions < OpenStruct
 
     attr_accessor :time
 
     def add_condition(name, *args)
-      self.merge! name => Condition.new(name, *args)
+      send("#{name}=", Condition.new(name, *args))
     end
 
     def conditions
