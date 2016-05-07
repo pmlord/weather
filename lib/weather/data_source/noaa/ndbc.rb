@@ -9,11 +9,15 @@ module Weather::DataSource::Noaa
     def get_conditions(buoy_id, time=Time.now)
       raise ArgumentError unless time.is_a?(Date) || time.is_a?(Time)
 
+      # TODO: Fetch ary_of_conditions from cache if available
+
       # Get raw text response from NDBC API
-      @raw_text_response ||= data_fetcher.get(buoy_id).body
+      raw_text_response = data_fetcher.get(buoy_id).body
 
       # Parse raw text response into array of Weather::Conditions
-      ary_of_conditions = parse_raw_text_response(@raw_text_response)
+      ary_of_conditions = parse_raw_text_response(raw_text_response)
+      
+      # TODO: Determine when to expire cache, and handle storage
 
       # Return Weather::Conditions object based on requested time.
       ary_of_conditions.min_by { |conditions| (conditions.time - time).abs }
