@@ -22,5 +22,9 @@ module Weather
   def self.configure
     yield configuration
   end
+  
+  def self.reset_configuration!
+    @configuration = Configuration.new
+  end
 
 end
