@@ -20,10 +20,6 @@ module Weather::DataSource::Noaa
       @time = arg
     end
 
-    def self.get_conditions(*args)
-      new(*args).get_conditions
-    end
-
 
     def get_conditions
       # Fetch raw_response from cache if available

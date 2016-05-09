@@ -20,6 +20,11 @@ module Weather::DataSource
       define_method method_name do
         raise Weather::MethodNotImplemented
       end
+      
+      # Define singleton method that accomplishes the same thing.
+      define_singleton_method method_name do |*args|
+        new(*args).get_conditions
+      end
     end
 
   end
