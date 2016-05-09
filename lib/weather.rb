@@ -1,6 +1,6 @@
 require 'unitwise'
 
-
+require 'weather/cache'
 require 'weather/conditions'
 require 'weather/condition'
 require 'weather/configuration'
@@ -22,9 +22,13 @@ module Weather
   def self.configure
     yield configuration
   end
-  
+
   def self.reset_configuration!
     @configuration = Configuration.new
+  end
+
+  def self.cache
+    @cache ||= Weather::Cache.new
   end
 
 end

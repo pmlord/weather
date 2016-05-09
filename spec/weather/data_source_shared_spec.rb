@@ -2,7 +2,7 @@ require 'spec_helper'
 
 # Shared examples to be included in classes that inherit from
 # Weather::DataSource::Base
-shared_examples_for 'DataSource decendents' do
+shared_examples 'DataSource descendants' do
 
   subject { described_class }
   

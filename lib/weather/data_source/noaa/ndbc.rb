@@ -6,29 +6,60 @@ module Weather::DataSource::Noaa
   # NOAA National Data Buoy Center (NDBC)
   class Ndbc < Weather::DataSource::Base
 
-    def get_conditions(buoy_id, time=Time.now)
+    def initialize(buoy_id, time=Time.now)
       raise ArgumentError unless time.is_a?(Date) || time.is_a?(Time)
 
-      # TODO: Fetch ary_of_conditions from cache if available
+      @buoy_id = buoy_id
+      @time = time
+    end
 
-      # Get raw text response from NDBC API
-      raw_text_response = data_fetcher.get(buoy_id).body
+    attr_accessor :buoy_id, :time
 
-      # Parse raw text response into array of Weather::Conditions
-      ary_of_conditions = parse_raw_text_response(raw_text_response)
+    def time=(arg)
+      raise ArgumentError unless arg.is_a?(Date) || arg.is_a?(Time)
+      @time = arg
+    end
+
+    def self.get_conditions(*args)
+      new(*args).get_conditions
+    end
+
+
+    def get_conditions
+      # Fetch raw_response from cache if available
+      cached_raw_response = Weather.cache.read(cache_key)
       
-      # TODO: Determine when to expire cache, and handle storage
+      # Get ary_of_conditions
+      if cached_raw_response.nil?
+        # Fetch raw response from NDBC API
+        raw_response = data_fetcher.get(@buoy_id).body
+        
+        # Parse raw response into array of Weather::Conditions
+        ary_of_conditions = parse_raw_response(raw_response)
 
+        # Write to cache
+        expires_in = ary_of_conditions.first.time - Time.now + 80.minutes
+        expires_in = [expires_in, 5.minutes].max
+        Weather.cache.write(cache_key, raw_response, expires_in: expires_in)
+      else
+        # Use cached response
+        ary_of_conditions = parse_raw_response(cached_raw_response)
+      end
+      
       # Return Weather::Conditions object based on requested time.
-      ary_of_conditions.min_by { |conditions| (conditions.time - time).abs }
+      ary_of_conditions.min_by { |conditions| (conditions.time - @time).abs }
     end
 
 
     private
 
-    def parse_raw_text_response(raw_text_response)
+    def cache_key
+      [self.class, buoy_id]
+    end
+
+    def parse_raw_response(raw_response)
       # Parse into CSV
-      raw_table = CSV.parse(raw_text_response, col_sep: ' ')
+      raw_table = CSV.parse(raw_response, col_sep: ' ')
 
       # Separate first two rows into column 'names' and 'units'
       header_rows = raw_table.take(2)
