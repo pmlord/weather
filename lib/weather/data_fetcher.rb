@@ -30,5 +30,12 @@ module Weather
       @connection ||= Faraday.new
     end
     
+    
+    private
+    
+    def settings
+      Weather.configuration.api_settings[data_source_symbol]
+    end
+    
   end
 end

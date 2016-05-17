@@ -1,6 +1,7 @@
 require 'weather/data_source/base'
 
 require 'weather/data_source/noaa'
+require 'weather/data_source/world_weather_online'
 
 
 module Weather

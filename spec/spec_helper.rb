@@ -1,4 +1,5 @@
 require 'weather'
+require 'env_vars'
 
 require 'helpers'
 RSpec.configure do |config|

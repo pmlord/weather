@@ -7,3 +7,5 @@
 /pkg/
 /spec/reports/
 /tmp/
+
+/spec/env_vars.rb

@@ -5,5 +5,8 @@ module Weather
 
   class MethodNotImplemented < Error
   end
+  
+  class MissingApiCredentials < Error
+  end
 
 end
