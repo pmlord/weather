@@ -100,7 +100,7 @@ module Weather::DataSource::Noaa
       'WSPD' => :wind_speed,
       'GST'  => :wind_gust,
       'WVHT' => :wave_height,
-      'DPD'  => :dominent_wave_period,
+      'DPD'  => :dominant_wave_period,
       'APD'  => :average_period,
       'MWD'  => :mean_wave_direction,
       'PRES' => :atmospheric_pressure,

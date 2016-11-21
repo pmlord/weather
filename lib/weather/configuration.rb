@@ -14,7 +14,7 @@ module Weather
       @api_settings = {}
     end
 
-    DEFAULT_CONDITION_NAMES = %i(wind_direction wind_speed wind_gust wave_height dominent_wave_period average_period mean_wave_direction atmospheric_pressure air_temperature water_temperature dew_point visibility pressure_tendency tide )
+    DEFAULT_CONDITION_NAMES = %i(wind_direction wind_speed wind_gust wave_height dominant_wave_period average_period mean_wave_direction atmospheric_pressure air_temperature water_temperature dew_point visibility pressure_tendency tide )
 
 
     def cache?
