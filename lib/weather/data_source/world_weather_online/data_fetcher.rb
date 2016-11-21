@@ -11,12 +11,12 @@ module Weather::DataSource::WorldWeatherOnline
       if settings.blank? || settings[:api_key].blank? || settings[:membership_level].blank?
         raise Weather::MissingApiCredentials
       end
-      
+
       @product  = product
       @location = location
       @params   = params
     end
-    
+
     def data_source_symbol
       :world_weather_online
     end
